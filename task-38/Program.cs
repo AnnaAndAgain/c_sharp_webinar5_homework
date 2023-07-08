@@ -10,20 +10,20 @@ int ReadInt(string text)
     return Convert.ToInt32(Console.ReadLine());
 }
 
-double[] FillArrayRandom(int tmpLength, double tmpMin, double tmpMax)
+double[] FillArrayRandom(int tmpLength, int tmpMin, int tmpMax)
 {
     double[] tmpArray = new double[tmpLength];
     Random randnum = new Random();
 
     for (int i = 0; i < tmpArray.Length; i++)
     {
-        tmpArray[i] = randnum.Next(tmpMin, tmpMax+1);
+        tmpArray[i] = Math.Round(randnum.Next(tmpMin, tmpMax+1) + randnum.NextDouble(), 2);
     };
 
     return tmpArray;
 }
 
-void PrintArray(int[] tmpArray)
+void PrintArray(double[] tmpArray)
 {
     Console.WriteLine($"[" + string.Join(", ", tmpArray) + "]");
 }
@@ -35,6 +35,7 @@ double FindMax(double[] tmpArray)
     {
         if (tmpArray[i] > tmpMax) tmpMax = tmpArray[i];
     }
+    Console.WriteLine($"max = {tmpMax}");
     return tmpMax;
 }
 
@@ -45,11 +46,12 @@ double FindMin(double[] tmpArray)
     {
         if (tmpArray[i] < tmpMin) tmpMin = tmpArray[i];
     }
+    Console.WriteLine($"min = {tmpMin}");
     return tmpMin;
 }
 
 int len = ReadInt("Введите длину массива:");
-double[] array = FillArrayRandom(len, 0, 100);
+double[] array = FillArrayRandom(len, -100, 100);
 PrintArray(array);
-double diff = FindMax(array) - FindMin(array);
+double diff = Math.Round(FindMax(array) - FindMin(array), 2);
 Console.WriteLine(diff);
